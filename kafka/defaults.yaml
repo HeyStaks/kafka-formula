@@ -1,0 +1,14 @@
+kafka:
+  user: kafka
+  group: kafka
+  prefix: '/usr/lib'
+  version: '0.9.0.1'
+  scala_version: '2.11'
+  download_url: 'http://www.mirrorservice.org/sites/ftp.apache.org/kafka/'
+  config:
+    broker_id: 0
+    port: 9092
+    zookeeper_connect: 'localhost:2181'
+    log_dirs:
+      - '/var/log/kafka'
+    num_partitions: 2

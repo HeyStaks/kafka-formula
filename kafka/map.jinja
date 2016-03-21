@@ -1,0 +1,21 @@
+{% import_yaml 'kafka/defaults.yaml' as default_settings %}
+
+{% set os_family_map = salt['grains.filter_by']({
+        'Debian': {},
+        'RedHat': {},
+  }, merge=salt['pillar.get']('kafka:lookup')) %}
+
+{% do default_settings.kafka.update(os_family_map) %}
+{% set kafka = salt['pillar.get']( 'kafka', default_settings.kafka, merge=True) %}
+
+{## Variable manipulation ##}
+
+{%- set version_name = 'kafka_' + kafka.scala_version + '-' + kafka.version %}
+{%- set home = kafka.prefix + '/' + version_name %}
+{%- set source_url = kafka.download_url + kafka.version + '/' + version_name + '.tgz' %}
+
+{% do kafka.update({'version_name': version_name,
+                    'home': home,
+                    'source_url': source_url,
+                   })
+%}
