@@ -1,14 +1,17 @@
 kafka:
   user: kafka
   group: kafka
-  prefix: '/usr/lib'
+  prefix: /usr/lib
   version: '0.9.0.1'
   scala_version: '2.11'
   download_url: 'http://www.mirrorservice.org/sites/ftp.apache.org/kafka/'
+  init_conf: /etc/init/kafka.conf
+  init_file: kafka.conf-upstart
+  external_zookeeper: False
   config:
     broker_id: 0
-    port: 9092
+    port: '9092'
     zookeeper_connect: 'localhost:2181'
     log_dirs:
-      - '/var/log/kafka'
+      - /var/log/kafka
     num_partitions: 2

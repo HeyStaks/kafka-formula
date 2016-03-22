@@ -10,12 +10,14 @@
 
 {## Variable manipulation ##}
 
-{%- set version_name = 'kafka_' + kafka.scala_version + '-' + kafka.version %}
-{%- set home = kafka.prefix + '/' + version_name %}
-{%- set source_url = kafka.download_url + kafka.version + '/' + version_name + '.tgz' %}
+{% set version_name = 'kafka_' + kafka.scala_version + '-' + kafka.version %}
+{% set home = kafka.prefix + '/' + version_name %}
+{% set source_url = kafka.download_url + kafka.version + '/' + version_name + '.tgz' %}
+{% set host_name = salt['network.get_hostname'] %}
 
 {% do kafka.update({'version_name': version_name,
                     'home': home,
                     'source_url': source_url,
+                    'host_name': host_name,
                    })
 %}

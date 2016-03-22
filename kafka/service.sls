@@ -1,6 +1,9 @@
+{%- from 'kafka/map.jinja' import kafka with context %}
+
 /etc/init/kafka.conf:
   file.managed:
-    - source: salt://kafka/templates/kafka.conf-upstart
+    - name: {{ kafka.init_conf }}
+    - source: salt://kafka/templates/{{ kafka.init_file }}
     - mode: 644
     - template: jinja
     - require:
