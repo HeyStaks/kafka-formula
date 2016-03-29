@@ -1,5 +1,18 @@
 {%- from 'kafka/map.jinja' import kafka with context %}
 
+include:
+  - kafka
+
+kafka_server_conf:
+  file.managed:
+    - name: {{ kafka.home }}/config/server.properties
+    - source: salt://kafka/templates/server.properties
+    - user: {{ kafka.user }}
+    - group: {{ kafka.group }}
+    - template: jinja
+    - require:
+      - file: {{ kafka.home }}
+
 /etc/init/kafka.conf:
   file.managed:
     - name: {{ kafka.init_conf }}
@@ -16,3 +29,5 @@ kafka_service:
     - watch:
       - file: kafka_server_conf
       - file: /etc/init/kafka.conf
+    - require:
+      - service: kafka_zookeeper

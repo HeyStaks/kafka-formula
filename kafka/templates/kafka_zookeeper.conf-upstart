@@ -1,0 +1,24 @@
+{% from 'kafka/map.jinja' import kafka with context -%}
+
+description "Zookeeper service included in Kafka"
+
+start on runlevel [2345]
+stop on [!12345]
+
+respawn
+respawn limit 2 5
+
+limit nofile 32768 32768
+
+umask 007
+
+kill timeout 300
+
+env KAFKA_HOME={{ kafka.home }}
+
+setuid {{ kafka.user }}
+setgid {{ kafka.group }}
+
+#chdir {{ kafka.home }}
+
+exec $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties

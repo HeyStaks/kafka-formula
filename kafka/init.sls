@@ -1,9 +1,5 @@
 {%- from 'kafka/map.jinja' import kafka with context %}
 
-include:
-  - .service
-  - .config
-
 kafka_group:
   group.present:
   - name: {{ kafka.group }}

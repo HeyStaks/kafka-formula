@@ -1,3 +1,9 @@
+zookeeper:
+  config:
+    data_dir: /var/lib/zookeeper
+    client_port: 2181
+    max_client_cnxns: 100
+
 kafka:
   user: kafka
   group: kafka
