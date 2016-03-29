@@ -1,4 +1,0 @@
-grains:
-  roles:
-    - zookeeper
-  zookeeper_myid: 1

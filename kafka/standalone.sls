@@ -1,3 +1,3 @@
 include:
-  - kafka.server
   - kafka.zookeeper
+  - kafka.server

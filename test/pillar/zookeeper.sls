@@ -1,5 +1,5 @@
 zookeeper:
-  prefix: /opt/heystaks/
+  prefix: /opt
 
 mine_functions:
   network.get_hostname: []

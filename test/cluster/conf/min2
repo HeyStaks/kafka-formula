@@ -1,0 +1,5 @@
+grains:
+  roles:
+    - kafka
+  kafka:
+    broker_id: 2

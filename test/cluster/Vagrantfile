@@ -18,11 +18,15 @@ Vagrant.configure(2) do |config|
   config.hostmanager.include_offline = true
 
   config.vm.provision :shell, inline: "sudo locale-gen en_IE.UTF-8"
+  config.vm.provision :shell, inline: "sudo apt-get install -y python-pip"
+  config.vm.provision :shell, inline: "sudo pip install tox"
 
   (1..3).each do |m|
     config.vm.define "min#{m}" do |min|
-      min.vm.network "private_network", ip: "172.16.99.1#{m}"
+      min.vm.network "private_network", ip: "172.16.99.2#{m}"
       min.vm.hostname = "min#{m}"
+      # Testing with tox and testinfra
+      config.vm.synced_folder "../testinfra", "/vagrant/testinfra"
 
       min.vm.provider "virtualbox" do |vb|
         vb.name = "zookeeper-min#{m}"
@@ -38,11 +42,11 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.define :master do |master|
-    master.vm.network "private_network", ip: "172.16.99.10"
+    master.vm.network "private_network", ip: "172.16.99.20"
     master.vm.hostname = "salt"
-    master.vm.synced_folder "../../zookeeper", "/srv/formulas/zookeeper"
-    master.vm.synced_folder "salt", "/srv/salt"
-    master.vm.synced_folder "pillar", "/srv/pillar/"
+    master.vm.synced_folder "../../kafka", "/srv/formulas/kafka"
+    master.vm.synced_folder "../salt", "/srv/salt"
+    master.vm.synced_folder "../pillar", "/srv/pillar/"
 
     master.vm.provider "virtualbox" do |vb|
       vb.name = "zookeeper-master"

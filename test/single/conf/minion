@@ -16,4 +16,5 @@ gitfs_remotes:
 grains:
   roles:
     - kafka
-  kafka_brokerid: 1
+  kafka:
+    brokerid: 1

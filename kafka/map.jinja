@@ -9,15 +9,22 @@
 {% set kafka = salt['pillar.get']( 'kafka', default_settings.kafka, merge=True) %}
 
 {## Variable manipulation ##}
-
 {% set version_name = 'kafka_' + kafka.scala_version + '-' + kafka.version %}
 {% set home = kafka.prefix + '/' + version_name %}
 {% set source_url = kafka.download_url + kafka.version + '/' + version_name + '.tgz' %}
 {% set host_name = salt['network.get_hostname'] %}
 
+{## Mine values ##}
+{% set hostnames = salt['mine.get']('roles:kafka', 'network.get_hostname', 'grain') %}
+{% set ips = salt['mine.get']('roles:kafka', 'network.ip_addrs', 'grain') %}
+{% set broker_ids = salt['mine.get']('roles:kafka', 'kafka_broker_id', 'grain') %}
+
 {% do kafka.update({'version_name': version_name,
                     'home': home,
                     'source_url': source_url,
                     'host_name': host_name,
+                    'hostnames': hostnames,
+                    'ips': ips,
+                    'broker_ids': broker_ids,
                    })
 %}

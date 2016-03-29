@@ -13,9 +13,9 @@ kafka_server_conf:
     - require:
       - file: {{ kafka.home }}
 
-/etc/init/kafka.conf:
+kafka_init:
   file.managed:
-    - name: {{ kafka.init_conf }}
+    - name: {{ kafka.init_conf }} 
     - source: salt://kafka/templates/{{ kafka.init_file }}
     - mode: 644
     - template: jinja
@@ -28,6 +28,6 @@ kafka_service:
     - enable: true
     - watch:
       - file: kafka_server_conf
-      - file: /etc/init/kafka.conf
+      - file: kafka_init
     - require:
       - service: kafka_zookeeper

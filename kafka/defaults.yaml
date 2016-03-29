@@ -1,7 +1,7 @@
 zookeeper:
   config:
     data_dir: /var/lib/zookeeper
-    client_port: 2181
+    client_port: '2181'
     max_client_cnxns: 100
 
 kafka:
@@ -19,5 +19,5 @@ kafka:
     port: '9092'
     zookeeper_connect: 'localhost:2181'
     log_dirs:
-      - /var/log/kafka
+      - /var/lib/kafka
     num_partitions: 2

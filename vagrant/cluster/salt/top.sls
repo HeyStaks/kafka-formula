@@ -1,4 +1,0 @@
-base:
-  '*':
-    - java
-    - zookeeper
