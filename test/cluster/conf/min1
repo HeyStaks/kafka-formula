@@ -3,3 +3,4 @@ grains:
     - kafka
   kafka:
     broker_id: 1
+    zk_myid: 1

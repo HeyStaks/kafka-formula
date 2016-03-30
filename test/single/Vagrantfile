@@ -33,6 +33,6 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "test", type: "shell" do |t|
-    t.inline = "tox -c testinfra/tox.ini"
+    t.inline = "tox -c /vagrant/tox.ini"
   end
 end

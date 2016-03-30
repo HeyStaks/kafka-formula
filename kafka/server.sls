@@ -29,5 +29,3 @@ kafka_service:
     - watch:
       - file: kafka_server_conf
       - file: kafka_init
-    - require:
-      - service: kafka_zookeeper

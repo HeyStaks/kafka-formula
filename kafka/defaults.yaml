@@ -1,9 +1,3 @@
-zookeeper:
-  config:
-    data_dir: /var/lib/zookeeper
-    client_port: '2181'
-    max_client_cnxns: 100
-
 kafka:
   user: kafka
   group: kafka
@@ -14,6 +8,15 @@ kafka:
   init_conf: /etc/init/kafka.conf
   init_file: kafka.conf-upstart
   external_zookeeper: False
+  zookeeper:
+    data_dir: /var/lib/zookeeper
+    max_client_cnxns: 100
+    client_port: '2181'
+    log_dir: /var/log/zookeeper
+    log_level: INFO
+    snap_count: None
+    snap_retain_count: 3
+    purge_interval: None
   config:
     broker_id: 0
     port: '9092'

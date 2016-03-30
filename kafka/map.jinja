@@ -18,6 +18,7 @@
 {% set hostnames = salt['mine.get']('roles:kafka', 'network.get_hostname', 'grain') %}
 {% set ips = salt['mine.get']('roles:kafka', 'network.ip_addrs', 'grain') %}
 {% set broker_ids = salt['mine.get']('roles:kafka', 'kafka_broker_id', 'grain') %}
+{% set zk_myids = salt['mine.get']('roles:kafka', 'kafka_zk_myid', 'grain') %}
 
 {% do kafka.update({'version_name': version_name,
                     'home': home,
@@ -26,5 +27,6 @@
                     'hostnames': hostnames,
                     'ips': ips,
                     'broker_ids': broker_ids,
+                    'zk_myids': zk_myids,
                    })
 %}
