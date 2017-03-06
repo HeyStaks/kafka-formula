@@ -1,0 +1,33 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: ubuntu-16.04
+
+verifier:
+  name: inspec
+
+provisioner:
+  name: salt_solo
+  formula: kafka
+  require_chef: false
+  dependencies:
+    - name: java
+      path: deps/java-formula
+
+suites:
+  - name: default
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - java
+            - kafka.standalone
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - kafka
+      pillars-from-files:
+        kafka.sls: pillar.example
