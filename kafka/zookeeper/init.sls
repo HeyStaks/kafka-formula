@@ -1,0 +1,2 @@
+include:
+  - kafka.zookeeper.service

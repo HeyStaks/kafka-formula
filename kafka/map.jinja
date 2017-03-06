@@ -1,32 +1,13 @@
-{% import_yaml 'kafka/defaults.yaml' as default_settings %}
+{% import_yaml 'kafka/defaults.yaml' as defaults %}
 
-{% set os_family_map = salt['grains.filter_by']({
-        'Debian': {},
-        'RedHat': {},
-  }, merge=salt['pillar.get']('kafka:lookup')) %}
+{% set kafka = salt['pillar.get']('kafka', default=defaults.kafka, merge=True) %}
 
-{% do default_settings.kafka.update(os_family_map) %}
-{% set kafka = salt['pillar.get']( 'kafka', default_settings.kafka, merge=True) %}
+{% set home = kafka.install_dir ~ "/" ~ kafka.version %}
 
-{## Variable manipulation ##}
-{% set version_name = 'kafka_' + kafka.scala_version + '-' + kafka.version %}
-{% set home = kafka.prefix + '/' + version_name %}
-{% set source_url = kafka.download_url + kafka.version + '/' + version_name + '.tgz' %}
-{% set host_name = salt['network.get_hostname'] %}
+{% do kafka.update({'home': home }) %}
 
 {## Mine values ##}
 {% set hostnames = salt['mine.get']('roles:kafka', 'network.get_hostname', 'grain') %}
 {% set ips = salt['mine.get']('roles:kafka', 'network.ip_addrs', 'grain') %}
 {% set broker_ids = salt['mine.get']('roles:kafka', 'kafka_broker_id', 'grain') %}
 {% set zk_myids = salt['mine.get']('roles:kafka', 'kafka_zk_myid', 'grain') %}
-
-{% do kafka.update({'version_name': version_name,
-                    'home': home,
-                    'source_url': source_url,
-                    'host_name': host_name,
-                    'hostnames': hostnames,
-                    'ips': ips,
-                    'broker_ids': broker_ids,
-                    'zk_myids': zk_myids,
-                   })
-%}

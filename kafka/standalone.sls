@@ -1,9 +1,9 @@
 include:
   - kafka.zookeeper
-  - kafka.server
+  - kafka
 
 extend:
   kafka_service:
     service:
       - watch:
-        - service: kafka_zookeeper_service
+        - service: kafka_zk_service

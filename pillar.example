@@ -23,7 +23,6 @@ kafka:
       zookeeper.connect: 'localhost:2181'
       zookeeper.connection.timeout.ms: 6000
   zookeeper:
-    myid: 0
     config:
       dataDir: '/tmp/zookeeper'
       maxClientCnxns: 100
