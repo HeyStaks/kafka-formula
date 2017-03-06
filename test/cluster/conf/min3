@@ -1,6 +1,0 @@
-grains:
-  roles:
-    - kafka
-  kafka:
-    broker_id: 3
-    zk_myid: 3
