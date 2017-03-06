@@ -1,0 +1,3 @@
+[submodule "deps/java-formula"]
+	path = deps/java-formula
+	url = git@bitbucket.org:heystaks/java-formula
